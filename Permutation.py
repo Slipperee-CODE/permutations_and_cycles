@@ -11,7 +11,7 @@ class Permutation:
     def compose(p1:"Permutation", p2:"Permutation") -> "Permutation":
         resultingPermutation = []
         for i in range(len(p1)):
-            resultingPermutation.append(p1[p2[i]])
+            resultingPermutation.append(p1[p2[i]-1])
 
         return Permutation(*resultingPermutation)
     
@@ -25,7 +25,7 @@ class Permutation:
             while curr in unused:
                 currCycle.add(curr)
                 unused.remove(curr)
-                curr = self.elements[curr]
+                curr = self.elements[curr-1]
             allCycles.append(currCycle)
         return allCycles
     
@@ -39,7 +39,10 @@ class Permutation:
                 )
             )
         )
-        return "".join(allCycles)
+        allCycles = list(allCycles)
+        if allCycles:
+            return "".join(allCycles)
+        return "()"
     
     def __len__(self):
         return len(self.elements)
